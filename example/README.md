@@ -1,4 +1,4 @@
-This example is a fully working parrot bot service which makes use of `TFCNNv1.h`, it will randomly generate quotes that score highly against the binary classifier / discriminator.
+This example is a parrot bot service which makes use of `TFCNNv1.h`, it will randomly generate quotes that score highly against the binary classifier / discriminator.
 
 It can be accessed via command line or run as a service where scripts aggregate data into its `botmsg.txt` and `botdict.txt` files, the former being for full string sentences and the latter should be a list of every unique word in every sentence included in `botmsg.txt`.
 
