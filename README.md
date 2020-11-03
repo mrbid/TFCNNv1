@@ -6,12 +6,9 @@ The content of this repository is the result of 22 days of work, prototyping, an
 `1/11/20`
 The `TFCNNv1_in8.h` version is a quick modification to pack/quantise the Float32 operations down to int8's. Performance is hindered by casting operations, however the memory footprint is less.
 
-`3/11/20`
-Added a SELU version.
-
 ### Version 2
 - `TFCNNv2.h` is a Linux / UNIX / BSD version.
-<br>https://github.com/TFCNN/TFCNN/tree/main/TFCNNv2
+<br>https://github.com/TFCNN/TFCNNv2
 
 Version 2 is feature rich and probably superfluous, stick to `TFCNNv1.h` if in doubt.
 
