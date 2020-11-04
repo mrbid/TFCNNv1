@@ -54,10 +54,7 @@ enum
 {
     WEIGHT_INIT_UNIFORM             = 0,
     WEIGHT_INIT_UNIFORM_GLOROT      = 1,
-    WEIGHT_INIT_UNIFORM_LECUN       = 2,
-    WEIGHT_INIT_NORMAL              = 3,
-    WEIGHT_INIT_NORMAL_GLOROT       = 4,
-    WEIGHT_INIT_NORMAL_LECUN        = 5
+    WEIGHT_INIT_UNIFORM_LECUN       = 2
 }
 typedef weight_init_type;
 
