@@ -113,10 +113,7 @@ enum
 {
     WEIGHT_INIT_UNIFORM             = 0,
     WEIGHT_INIT_UNIFORM_GLOROT      = 1,
-    WEIGHT_INIT_UNIFORM_LECUN       = 2,
-    WEIGHT_INIT_NORMAL              = 3,
-    WEIGHT_INIT_NORMAL_GLOROT       = 4,
-    WEIGHT_INIT_NORMAL_LECUN        = 5
+    WEIGHT_INIT_UNIFORM_LECUN       = 2
 }
 typedef weight_init_type;
 
@@ -411,7 +408,7 @@ static inline float doPerceptron(const float* in, ptron* p)
 
 /**********************************************/
 
-int createPerceptron(ptron* p, const uint weights, const float d, const weight_init_type wit)
+int createPerceptron(ptron* p, const uint weights, const float d)
 {
     p->data = malloc(weights * sizeof(int8));
     if(p->data == NULL)
@@ -425,11 +422,7 @@ int createPerceptron(ptron* p, const uint weights, const float d, const weight_i
 
     for(uint i = 0; i < p->weights; i++)
     {
-        if(wit < 3)
-            p->data[i] = packFloat(qRandWeight(-d, d)); // uniform
-        else
-            p->data[i] = packFloat(qRandWeight(0, d));  // normal
-
+        p->data[i] = packFloat(qRandWeight(-d, d));
         p->momentum[i] = 0;
     }
 
@@ -439,15 +432,11 @@ int createPerceptron(ptron* p, const uint weights, const float d, const weight_i
     return 0;
 }
 
-void resetPerceptron(ptron* p, const float d, const weight_init_type wit)
+void resetPerceptron(ptron* p, const float d)
 {
     for(uint i = 0; i < p->weights; i++)
     {
-        if(wit < 3)
-            p->data[i] = packFloat(qRandWeight(-d, d)); // uniform
-        else
-            p->data[i] = packFloat(qRandWeight(0, d));  // normal
-        
+        p->data[i] = packFloat(qRandWeight(-d, d));
         p->momentum[i] = 0;
     }
 
@@ -598,14 +587,10 @@ int createNetwork(network* net, const uint init_weights_type, const uint inputs,
         d = sqrt(6.0/(inputs+layers_size));
     else if(init_weights_type == WEIGHT_INIT_UNIFORM_LECUN)
         d = sqrt(3.0/inputs);
-    else if(init_weights_type == WEIGHT_INIT_NORMAL_GLOROT)
-        d = sqrt(2.0/(inputs+layers_size));
-    else if(init_weights_type == WEIGHT_INIT_NORMAL_LECUN)
-        d = sqrt(1.0/inputs);
 
     // create first layer perceptrons
     for(int i = 0; i < layers_size; i++)
-        if(createPerceptron(&net->layer[0][i], inputs, d, net->init) < 0)
+        if(createPerceptron(&net->layer[0][i], inputs, d) < 0)
             return ERROR_CREATE_FIRSTLAYER_FAIL;
     
     // weight init
@@ -613,25 +598,19 @@ int createNetwork(network* net, const uint init_weights_type, const uint inputs,
         d = sqrt(6.0/(layers_size+layers_size));
     else if(init_weights_type == WEIGHT_INIT_UNIFORM_LECUN)
         d = sqrt(3.0/layers_size);
-    else if(init_weights_type == WEIGHT_INIT_NORMAL_GLOROT)
-        d = sqrt(2.0/(layers_size+layers_size));
-    else if(init_weights_type == WEIGHT_INIT_NORMAL_LECUN)
-        d = sqrt(1.0/layers_size);
 
     // create hidden layers
     for(uint i = 1; i < layers-1; i++)
         for(int j = 0; j < layers_size; j++)
-            if(createPerceptron(&net->layer[i][j], layers_size, d, net->init) < 0)
+            if(createPerceptron(&net->layer[i][j], layers_size, d) < 0)
                 return ERROR_CREATE_HIDDENLAYER_FAIL;
 
     // weight init
     if(init_weights_type == WEIGHT_INIT_UNIFORM_GLOROT)
         d = sqrt(6.0/(layers_size+1));
-    else if(init_weights_type == WEIGHT_INIT_NORMAL_GLOROT)
-        d = sqrt(2.0/(layers_size+1));
 
     // create output layer
-    if(createPerceptron(&net->layer[layers-1][0], layers_size, d, net->init) < 0)
+    if(createPerceptron(&net->layer[layers-1][0], layers_size, d) < 0)
         return ERROR_CREATE_OUTPUTLAYER_FAIL;
 
     // done
@@ -809,38 +788,28 @@ void resetNetwork(network* net)
         d = sqrt(6.0/(net->num_inputs+net->num_layerunits));
     else if(net->init == WEIGHT_INIT_UNIFORM_LECUN)
         d = sqrt(3.0/net->num_inputs);
-    else if(net->init == WEIGHT_INIT_NORMAL_GLOROT)
-        d = sqrt(2.0/(net->num_inputs+net->num_layerunits));
-    else if(net->init == WEIGHT_INIT_NORMAL_LECUN)
-        d = sqrt(1.0/net->num_inputs);
 
     // reset first layer perceptrons
     for(int i = 0; i < net->num_layerunits; i++)
-        resetPerceptron(&net->layer[0][i], d, net->init);
+        resetPerceptron(&net->layer[0][i], d);
     
     // weight init
     if(net->init == WEIGHT_INIT_UNIFORM_GLOROT)
         d = sqrt(6.0/(net->num_layerunits+net->num_layerunits));
     else if(net->init == WEIGHT_INIT_UNIFORM_LECUN)
         d = sqrt(3.0/net->num_layerunits);
-    else if(net->init == WEIGHT_INIT_NORMAL_GLOROT)
-        d = sqrt(2.0/(net->num_layerunits+net->num_layerunits));
-    else if(net->init == WEIGHT_INIT_NORMAL_LECUN)
-        d = sqrt(1.0/net->num_layerunits);
 
     // reset hidden layers
     for(uint i = 1; i < net->num_layers-1; i++)
         for(int j = 0; j < net->num_layerunits; j++)
-            resetPerceptron(&net->layer[i][j], d, net->init);
+            resetPerceptron(&net->layer[i][j], d);
 
     // weight init
     if(net->init == WEIGHT_INIT_UNIFORM_GLOROT)
         d = sqrt(6.0/(net->num_layerunits+1));
-    else if(net->init == WEIGHT_INIT_NORMAL_GLOROT)
-        d = sqrt(2.0/(net->num_layerunits+1));
 
     // reset output layer
-    resetPerceptron(&net->layer[net->num_layers-1][0], d, net->init);
+    resetPerceptron(&net->layer[net->num_layers-1][0], d);
 }
 
 void destroyNetwork(network* net)
