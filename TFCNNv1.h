@@ -168,7 +168,7 @@ void randomHyperparameters(network* net);
 */
 
 int createNetwork(network* net, const weight_init_type init_type, const uint num_inputs, const uint num_hidden_layers, const uint num_layer_units);
-float processNetwork(network* net, float* inputs, const learn_type learn);
+float processNetwork(network* net, const float* inputs, const learn_type learn);
 void resetNetwork(network* net);
 void destroyNetwork(network* net);
 int saveWeights(network* net, const char* file);
@@ -583,7 +583,7 @@ int createNetwork(network* net, const uint init_weights_type, const uint inputs,
     return 0;
 }
 
-float processNetwork(network* net, float* inputs, const int learn)
+float processNetwork(network* net, const float* inputs, const int learn)
 {
     // validate [it's ok, the output should be sigmoid 0-1 otherwise]
     if(net == NULL)
