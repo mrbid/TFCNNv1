@@ -9,7 +9,7 @@ The [`TFCNNv1_in8.h`](https://github.com/TFCNN/TFCNNv1/blob/main/TFCNNv1_int8.h)
 ### Version 2
 - [`TFCNNv2.h`](https://github.com/TFCNN/TFCNNv2) is a Linux / UNIX / BSD version.
 
-Version 2 is feature rich and probably superfluous, stick to [`TFCNNv1.h`](https://github.com/TFCNN/TFCNNv1/blob/main/TFCNNv1.h) if in doubt.
+Version 2 is feature rich and probably superfluous for most purposes, stick to [`TFCNNv1.h`](https://github.com/TFCNN/TFCNNv1/blob/main/TFCNNv1.h) if in doubt.
 
 ### Version 1
 - `TFCNNv1.h` is a platform independent version.
