@@ -16,7 +16,7 @@ Version 2 is feature rich and probably superfluous, stick to `TFCNNv1.h` if in d
 - `TFCNNv1.h` is a platform independent version.
 ```
 int   createNetwork(network* net, const weight_init_type init_type, const uint num_inputs, const uint num_hidden_layers, const uint num_layer_units);
-float processNetwork(network* net, float* inputs, const learn_type learn);
+float processNetwork(network* net, const float* inputs, const learn_type learn);
 void  resetNetwork(network* net);
 void  destroyNetwork(network* net);
 int   saveWeights(network* net, const char* file);
