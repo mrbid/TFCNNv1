@@ -670,26 +670,28 @@ float processNetwork(network* net, const float* inputs, const int learn)
     // output (binary classifier) derivative error
     const float eout = net->gain * sigmoidDerivative(net->foutput) * net->error;
 
-    // output derivative error layer before output layer
+    // output 'derivative error layer' of layer before/behind the output layer
     float ler = 0;
     for(int j = 0; j < net->layer[net->num_layers-1][0].weights; j++)
         ler += net->layer[net->num_layers-1][0].data[j] * eout;
     ler += net->layer[net->num_layers-1][0].bias * eout;
     for(int i = 0; i < net->num_layerunits; i++)
-        ef[net->num_layers-2][i] = net->gain * Derivative(of[net->num_layers-2][i], net->activator) * ler;
+        ef[net->num_layers-2][i] = net->gain * Derivative(of[net->num_layers-2][i], net) * ler;
 
     // output derivative error of all other layers
     for(int i = net->num_layers-3; i >= 0; i--)
     {
+        // compute total error of layer above w.r.t all weights and units of the above layer
+        float ler = 0;
         for(int j = 0; j < net->num_layerunits; j++)
         {
-            float ler = 0;
             for(int k = 0; k < net->layer[i+1][j].weights; k++)
                 ler += net->layer[i+1][j].data[k] * ef[i+1][j];
             ler += net->layer[i+1][j].bias * ef[i+1][j];
-
-            ef[i][j] = net->gain * Derivative(of[i][j], net->activator) * ler;
         }
+        // propagate that error to into the error variable of each unit of the current layer
+        for(int j = 0; j < net->num_layerunits; j++)
+            ef[i][j] = net->gain * Derivative(of[i][j], net) * ler;
     }
 
 /**************************************
