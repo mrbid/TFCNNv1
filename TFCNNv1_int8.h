@@ -197,10 +197,7 @@ float qRandFloat(const float min, const float max)
         ls = time(0) + 33;
     }
 #endif
-    const float rv = (float)rand();
-    if(rv == 0)
-        return min;
-    return ( (rv / (float)RAND_MAX) * (max-min) ) + min;
+    return ( ((float)rand() / (float)RAND_MAX) * (max-min) ) + min;
 }
 
 float qRandWeight(const float min, const float max)
@@ -216,10 +213,7 @@ float qRandWeight(const float min, const float max)
     float pr = 0;
     while(pr == 0) //never return 0
     {
-        const float rv = (float)rand();
-        if(rv == 0)
-            return min;
-        const float rv2 = ( (rv / (float)RAND_MAX) * (max-min) ) + min;
+        const float rv2 = ( ((float)rand() / (float)RAND_MAX) * (max-min) ) + min;
         pr = roundf(rv2 * 100) / 100; // two decimals of precision
     }
     return pr;
@@ -235,11 +229,8 @@ uint qRand(const uint min, const uint umax)
         ls = time(0) + 33;
     }
 #endif
-    const int rv = rand();
     const uint max = umax + 1;
-    if(rv == 0)
-        return min;
-    return ( ((float)rv / (float)RAND_MAX) * (max-min) ) + min;
+    return ( ((float)rand() / (float)RAND_MAX) * (max-min) ) + min;
 }
 
 /**********************************************/
