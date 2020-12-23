@@ -53,8 +53,8 @@ enum
 {
     WEIGHT_INIT_UNIFORM             = 0,
     WEIGHT_INIT_UNIFORM_GLOROT      = 1,
-    WEIGHT_INIT_UNIFORM_LECUN       = 3,
-    WEIGHT_INIT_UNIFORM_HE          = 4
+    WEIGHT_INIT_UNIFORM_LECUN       = 2,
+    WEIGHT_INIT_UNIFORM_HE          = 3
 }
 typedef weight_init_type;
 
