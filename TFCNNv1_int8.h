@@ -509,7 +509,7 @@ void randomHyperparameters(network* net)
 {
     if(net == NULL){return;}
         
-    net->init       = qRand(0, 5);
+    net->init       = qRand(0, 3);
     net->activator  = qRand(1, 4);
     net->optimiser  = qRand(0, 4);
     net->rate       = qRandFloat(0.001, 0.03);
