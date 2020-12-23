@@ -708,7 +708,7 @@ float processNetwork(network* net, const float* inputs, const int learn)
         ler += net->layer[net->num_layers-1][0].data[j] * eout;
     ler += net->layer[net->num_layers-1][0].bias * eout;
     for(int i = 0; i < net->num_layerunits; i++)
-        ef[net->num_layers-2][i] = net->gain * Derivative(of[net->num_layers-2][i], net) * ler;
+        ef[net->num_layers-2][i] = net->gain * Derivative(of[net->num_layers-2][i], net->activator) * ler;
 
     // output derivative error of all other layers
     for(int i = net->num_layers-3; i >= 0; i--)
@@ -723,7 +723,7 @@ float processNetwork(network* net, const float* inputs, const int learn)
         }
         // propagate that error to into the error variable of each unit of the current layer
         for(int j = 0; j < net->num_layerunits; j++)
-            ef[i][j] = net->gain * Derivative(of[i][j], net) * ler;
+            ef[i][j] = net->gain * Derivative(of[i][j], net->activator) * ler;
     }
 
 /**************************************
