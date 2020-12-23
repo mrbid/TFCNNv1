@@ -190,6 +190,7 @@ int loadWeights(network* net, const char* file);
 
 float qRandFloat(const float min, const float max)
 {
+    static float rndmax = (float)RAND_MAX;
 #ifndef FAST_PREDICTABLE_MODE
     static time_t ls = 0;
     if(time(0) > ls)
@@ -198,11 +199,12 @@ float qRandFloat(const float min, const float max)
         ls = time(0) + 33;
     }
 #endif
-    return ( ( ((float)rand())+1e-7 / (float)RAND_MAX ) * (max-min) ) + min;
+    return ( ( ((float)rand())+1e-7 / rndmax ) * (max-min) ) + min;
 }
 
 float qRandWeight(const float min, const float max)
 {
+    static float rndmax = (float)RAND_MAX;
 #ifndef FAST_PREDICTABLE_MODE
     static time_t ls = 0;
     if(time(0) > ls)
@@ -214,7 +216,7 @@ float qRandWeight(const float min, const float max)
     float pr = 0;
     while(pr == 0) //never return 0
     {
-        const float rv2 = ( ( ((float)rand())+1e-7 / (float)RAND_MAX ) * (max-min) ) + min;
+        const float rv2 = ( ( ((float)rand())+1e-7 / rndmax ) * (max-min) ) + min;
         pr = roundf(rv2 * 100) / 100; // two decimals of precision
     }
     return pr;
@@ -222,6 +224,7 @@ float qRandWeight(const float min, const float max)
 
 uint qRand(const uint min, const uint umax)
 {
+    static float rndmax = (float)RAND_MAX;
 #ifndef FAST_PREDICTABLE_MODE
     static time_t ls = 0;
     if(time(0) > ls)
@@ -231,7 +234,7 @@ uint qRand(const uint min, const uint umax)
     }
 #endif
     const uint max = umax + 1;
-    return ( ( ((float)rand())+1e-7 / (float)RAND_MAX ) * (max-min) ) + min;
+    return ( ( ((float)rand())+1e-7 / rndmax ) * (max-min) ) + min;
 }
 
 /**********************************************/
