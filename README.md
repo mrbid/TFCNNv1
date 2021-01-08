@@ -6,7 +6,11 @@ The content of this repository is the result of 22 days of work, prototyping, an
 `01/11/20`
 The [`TFCNNv1_int8.h`](https://github.com/TFCNN/TFCNNv1/blob/main/TFCNNv1_int8.h) version is a quick modification to pack/quantise the Float32 operations down to int8's. Performance is hindered by casting operations, however the memory footprint is less. This works with regular classification and training.
 
-`[08/01/21]` - Random functions broken on `12/12/20` flawed quick fix on `23/12/20` now finally corrected.
+`23/12/20`
+HE initialisation added.
+
+`08/01/21`
+Random functions broken on `12/12/20` flawed quick fix on `23/12/20` now finally corrected.
 
 ### Version 2
 - [`TFCNNv2.h`](https://github.com/TFCNN/TFCNNv2) is a Linux / UNIX / BSD version.
