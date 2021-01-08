@@ -3,7 +3,7 @@
 `26/10/20`
 The content of this repository is the result of 22 days of work, prototyping, and research; TFCNN is a very efficient, simple, and fast neural network library to implement. Designed for binary classification.
 
-`1/11/20`
+`01/11/20`
 The [`TFCNNv1_int8.h`](https://github.com/TFCNN/TFCNNv1/blob/main/TFCNNv1_int8.h) version is a quick modification to pack/quantise the Float32 operations down to int8's. Performance is hindered by casting operations, however the memory footprint is less. This works with regular classification and training.
 
 ### Version 2
