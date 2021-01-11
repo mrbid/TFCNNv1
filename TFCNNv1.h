@@ -908,30 +908,54 @@ int loadWeights(network* net, const char* file)
         for(int j = 0; j < net->num_layerunits; j++)
         {
             if(fread(&net->layer[i][j].data[0], 1, net->layer[i][j].weights*sizeof(float), f) != net->layer[i][j].weights*sizeof(float))
+            {
+                fclose(f);
                 return -1;
+            }
 
             if(fread(&net->layer[i][j].momentum[0], 1, net->layer[i][j].weights*sizeof(float), f) != net->layer[i][j].weights*sizeof(float))
+            {
+                fclose(f);
                 return -1;
+            }
 
             if(fread(&net->layer[i][j].bias, 1, sizeof(float), f) != sizeof(float))
+            {
+                fclose(f);
                 return -1;
+            }
 
             if(fread(&net->layer[i][j].bias_momentum, 1, sizeof(float), f) != sizeof(float))
+            {
+                fclose(f);
                 return -1;
+            }
         }
     }
 
     if(fread(&net->layer[net->num_layers-1][0].data[0], 1, net->layer[net->num_layers-1][0].weights*sizeof(float), f) != net->layer[net->num_layers-1][0].weights*sizeof(float))
+    {
+        fclose(f);
         return -1;
-
+    }
+    
     if(fread(&net->layer[net->num_layers-1][0].momentum[0], 1, net->layer[net->num_layers-1][0].weights*sizeof(float), f) != net->layer[net->num_layers-1][0].weights*sizeof(float))
+    {
+        fclose(f);
         return -1;
+    }
 
     if(fread(&net->layer[net->num_layers-1][0].bias, 1, sizeof(float), f) != sizeof(float))
+    {
+        fclose(f);
         return -1;
+    }
 
     if(fread(&net->layer[net->num_layers-1][0].bias_momentum, 1, sizeof(float), f) != sizeof(float))
+    {
+        fclose(f);
         return -1;
+    }
 
     fclose(f);
     return 0;
