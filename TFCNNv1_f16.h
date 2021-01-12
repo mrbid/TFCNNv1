@@ -1,16 +1,17 @@
 /*
 --------------------------------------------------
     James William Fletcher (james@voxdsp.com)
-        October 2020 - TFCNNv1_f16
+        January 2021 - TFCNNv1_f16
 --------------------------------------------------
     Tiny Fully Connected Neural Network Library
     https://github.com/tfcnn
-
-    This is a version that uses f16 quantisation
-    to reduce the memory footprint.
-
-    Skip down to SCALE_FACTOR if you desire
-    to tune the quantisation min/max.
+    
+    This is a version that uses half-float (float16)
+    quantisation to reduce the memory footprint.
+    
+    The float to float16 conversion and back is a 
+    straight forward copy and paste from;
+    https://stackoverflow.com/a/60047308
 */
 
 #ifndef TFCNN_H
